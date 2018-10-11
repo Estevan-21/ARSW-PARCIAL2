@@ -1,4 +1,5 @@
-# java-getting-started
+# PARCIAL 2
+## Creé los controladores y el mapeo necesario para obtener los datos, cuando me conecto desde una clase a la URL e imprimo los resultados si funciona, pero cuando hago lo mismo llamando el método desde el browser sale una exceptión de securidad de ssl.
 
 [![CircleCI](https://circleci.com/gh/heroku/java-getting-started.svg?style=svg)](https://circleci.com/gh/heroku/java-getting-started)
 
