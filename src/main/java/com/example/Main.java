@@ -18,6 +18,9 @@ package com.example;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import edu.eci.arsw.actions.beans.ActionsExplorer;
+import edu.eci.arsw.actions.explorers.AlphaVantageExplorer;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -33,10 +36,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @SpringBootApplication
 public class Main {
+    
+  
+  ActionsExplorer action=new AlphaVantageExplorer();
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
@@ -73,6 +83,28 @@ public class Main {
       return "error";
     }
   }
+
+    /**
+     *
+     * @param act
+     * @return
+     */
+    @RequestMapping(value = "/{act}",method = RequestMethod.GET)
+ 	public ResponseEntity<?> getActionDaily(@PathVariable String act) throws IOException{            
+            System.out.println("Entro 1");
+            return new ResponseEntity<>(action.getActionDaily(act),HttpStatus.ACCEPTED);  
+ 	}   
+        
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = "/actions2")
+        public ResponseEntity<?> getAction() throws IOException{            
+            System.out.println("Entro 1");
+            return new ResponseEntity<>(action.getActionDaily("MSFT"),HttpStatus.ACCEPTED);  
+ 	}   
+  
 
   @Bean
   public DataSource dataSource() throws SQLException {
